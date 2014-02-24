@@ -4,7 +4,7 @@ require 'logger_targets'
 module Stump
 
   class Config
-    def init(options)
+    def self.init(options)
       log_path = options[:path]
       if  FileTest.exist?(log_path)
         log_file = open_logger(log_path)
