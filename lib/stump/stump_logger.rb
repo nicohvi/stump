@@ -2,6 +2,10 @@ require 'logger'
 
 module Stump
 
+  #
+  # The StumpLogger ensures that the logger provided (could be a standard Ruby Logger)
+  # gets called by Rack.
+  #
   class StumpLogger
     def initialize(app, logger, level_threshold = ::Logger::INFO)
       @app = app
