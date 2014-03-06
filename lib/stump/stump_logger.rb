@@ -14,6 +14,7 @@ module Stump
     end
 
     def call(env)
+      env['rack.logger'] = @logger
       @app.call(env)
     end
   end
