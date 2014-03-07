@@ -90,4 +90,4 @@ This can totally happen, so just open up an `issue` and I'll get right on it!
 
 ## License
 
-Copyright (c) `@nicovhi, released under the MIT License.
+Copyright (c) `@nicovhi`, released under the MIT License.
