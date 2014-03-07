@@ -4,8 +4,8 @@ Hey - logging in sinatra (or other rack-based applications other than Rails) is 
 it needs to be, right? Totally, it's about time someone came up with a nifty name for a gem and did something
 about it. Someone totally did.
 
-Stump uses the basic Ruby logger to do some neat stuff, so you can go to that fancy pantsuit party rather
-than sitting at home writing configurations. Why call it Stump? It's like a small (tree) log, get it? Get it?
+Stump is a small gem that uses the basic Ruby logger to do some neat stuff, so you can go to that fancy pantsuit party
+rather than sit at home writing configurations. Why call it Stump? It's like a small (tree) log, get it? Get it?
 
 ## Usage
 
