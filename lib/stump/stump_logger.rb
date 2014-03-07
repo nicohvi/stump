@@ -7,16 +7,69 @@ module Stump
   # gets called by Rack.
   #
   class StumpLogger
-    def initialize(app, logger, level_threshold = ::Logger::INFO)
+
+    # Adheres to the Apache Common Log format: http://en.wikipedia.org/wiki/Common_Log_Format
+    FORMAT = %{%s - %s [%s] "%s %s%s %s" %d %0.4f \n}
+
+    def initialize(app, options = {})
       @app = app
-      @logger = logger
-      @logger.level = level_threshold
+      @logger = options[:logger]
+      @logger.level = extract_threshold(options[:logger_threshold])
+      @access_log = options[:access_log]
     end
 
     def call(env)
+      began_at = Time.now
+      status, header, body = @app.call(env)
+      access_log(env, status, began_at) unless @access_log.nil?
       env['rack.logger'] = @logger
       @app.call(env)
     end
+
+    private
+
+    #
+    # Logs access log type messages to the logger's targets if the @access_log instance
+    # variable exists
+    #
+    def access_log(env, status, began_at)
+      now = Time.now
+      msg = FORMAT % [
+          env['HTTP_X_FORWARDED_FOR'] || env['REMOTE_ADDR'] || '-',
+          env['REMOTE_USER'] || '-',
+          now.strftime('%d/%b/%Y:%H:%M:%S %z'),
+          env['REQUEST_METHOD'],
+          env['PATH_INFO'],
+          env['QUERY_STRING'].empty? ? '' : '?'+env['QUERY_STRING'],
+          env['HTTP_VERSION'],
+          status.to_s[0..3],
+          now - began_at ]
+
+      # Standard library logger doesn't support write but it supports << which actually
+      # calls to write on the log device without formatting
+      if @logger.respond_to?(:write)
+        @logger.write(msg)
+      else
+        @logger << msg
+      end
+    end
+
+    #
+    # +INFO+ is the default logging level threshold if none is provided.
+    #
+    def extract_threshold(threshold)
+      case threshold
+        when 'debug'
+          return ::Logger::DEBUG
+        when 'info'
+          return ::Logger::INFO
+        when 'warn'
+          return ::Logger::WARN
+        else
+          return ::Logger::INFO
+      end
+    end
+
   end
 
 end
