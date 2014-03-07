@@ -9,7 +9,7 @@ than sitting at home writing configurations. Why call it `stump`? It's like a sm
 
 ## Usage
 
-(For the **tldr**, scroll down to the summary!)
+(For the **tldr**, scroll down!)
 
 To enable logging for your rack-based application simply add the following
 
@@ -85,9 +85,9 @@ Yeah, it's boring to read.
 
 "Hey, it's not working!"
 
-This can totally happen, so just open up an `issue` and I'll get right on it!
+This can totally happen, so just open up an issue and I'll get right on it!
 
 
 ## License
 
-Copyright (c) `@nicovhi`, released under the MIT License.
+Copyright (c) @nicovhi, released under the MIT License.
