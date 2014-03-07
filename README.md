@@ -16,7 +16,7 @@ To enable logging for your rack-based application, first install the gem
     # Gemfile
     gem 'stump'
 
-Secondly, add the following to your configuration file for your rack-based application
+Secondly, add the following to your application
 
     require 'stump'
     use Stump::StumpLogger
