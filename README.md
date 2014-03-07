@@ -1,5 +1,7 @@
 # Stump
 
+[![Code Climate](https://codeclimate.com/github/nicohvi/stump.png)](https://codeclimate.com/github/nicohvi/stump)
+
 Hey - logging in sinatra (or other rack-based applications other than Rails) is a lot more cumbersome than
 it needs to be, right? Totally, it's about time someone came up with a nifty name for a gem and did something
 about it. Someone totally did.
