@@ -11,7 +11,12 @@ rather than sit at home writing configurations. Why call it Stump? It's like a s
 
 (For the **tldr**, scroll down!)
 
-To enable logging for your rack-based application simply add the following
+To enable logging for your rack-based application, first install the gem
+
+    # Gemfile
+    gem 'stump'
+
+Secondly, add the following to your configuration file for your rack-based application
 
     require 'stump'
     use Stump::StumpLogger
@@ -76,6 +81,10 @@ conversations you'll have at that pantsuit party.
 
 Yeah, it's boring to read.
 
+    # Gemfile
+    gem 'stump'
+
+    # configuration file for your rack-based application
     require 'stump'
 
     stump = Stump::Config.init({ path: "log(#{ENV['RACK_ENV']}.log", shift_age: 'daily' })
