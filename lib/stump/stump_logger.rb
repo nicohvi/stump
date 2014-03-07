@@ -9,12 +9,13 @@ module Stump
   class StumpLogger
 
     # Adheres to the Apache Common Log format: http://en.wikipedia.org/wiki/Common_Log_Format
-    FORMAT = %{%s - %s [%s] "%s %s%s %s" %d %0.4f \n}
+    ACCESS_LOG_FORMAT = %{%s - %s [%s] "%s %s%s %s" %d %0.4f \n}
 
     def initialize(app, options = {})
       @app = app
       @logger = options[:logger]
       @logger.level = extract_threshold(options[:logger_threshold])
+      format_log(@logger) if options[:custom_format]
       @access_log = options[:access_log]
     end
 
@@ -34,7 +35,7 @@ module Stump
     #
     def access_log(env, status, began_at)
       now = Time.now
-      msg = FORMAT % [
+      msg = ACCESS_LOG_FORMAT % [
           env['HTTP_X_FORWARDED_FOR'] || env['REMOTE_ADDR'] || '-',
           env['REMOTE_USER'] || '-',
           now.strftime('%d/%b/%Y:%H:%M:%S %z'),
@@ -47,10 +48,11 @@ module Stump
 
       # Standard library logger doesn't support write but it supports << which actually
       # calls to write on the log device without formatting
-      if @logger.respond_to?(:write)
-        @logger.write(msg)
+      logger = @logger || env['rack.logger']
+      if logger.respond_to?(:write)
+        logger.write(msg)
       else
-        @logger << msg
+        logger << msg
       end
     end
 
@@ -67,6 +69,18 @@ module Stump
           return ::Logger::WARN
         else
           return ::Logger::INFO
+      end
+    end
+
+    #
+    # Formats the log to the following pattern:
+    #   "#{severity} @ [ #{datetime} ] : #{message} "
+    # e.g "DEBUG @ [2012-21-12 - 10:37:07] : The world is ending, did you remember to bring fancy hats?"
+    #
+    def format_log(logger)
+      logger.datetime_format = '%Y-%m-%d - %H:%M:%S' # e.g. "2004-01-03 00:54:26"
+      logger.formatter = proc do |severity, datetime, progname, msg|
+        "#{severity} @ [#{datetime}] : #{msg} \n"
       end
     end
 
