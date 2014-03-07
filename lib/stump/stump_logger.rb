@@ -13,7 +13,7 @@ module Stump
 
     def initialize(app, options = {})
       @app = app
-      @logger = options[:logger]
+      @logger = options[:logger] || ::Logger.new(STDOUT, 'daily')
       @logger.level = extract_threshold(options[:logger_threshold])
       format_log(@logger) if options[:custom_format]
       @access_log = options[:access_log]

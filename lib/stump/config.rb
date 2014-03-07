@@ -10,6 +10,7 @@ module Stump
   class Config
     def self.init(options = {})
       log_path = options[:path]
+      shift_age = options[:shift_age] || 'daily'
       return Logger.new LoggerTargets.new(STDOUT) if log_path.nil?
 
       if FileTest.exist?(log_path)
@@ -17,7 +18,7 @@ module Stump
       else
         log_file = File.new(log_path, 'w')
       end
-       Logger.new LoggerTargets.new(STDOUT, log_file)
+       Logger.new(LoggerTargets.new(STDOUT, log_file), shift_age)
     end
 
   end
