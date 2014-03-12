@@ -57,7 +57,7 @@ This will give you log messages that look like this
 
 Now, to go *even further* - wouldn't it be amazing if we could log to a file *as well as STDOUT*? You know it.
 
-    stump = Stump::Config.init({ path: "log(#{ENV['RACK_ENV']}.log" })
+    stump = Stump::Config.init({ path: "log/#{ENV['RACK_ENV']}.log" })
 
 Would set up a new stump logger to point to a file called (for the `development` environment) `log/development.log`.
 You can also control the *shift age* (frequency of rotation between log files) by supplying an extra argument like so:
@@ -91,8 +91,8 @@ Yeah, it's boring to read.
     # configuration file for your rack-based application
     require 'stump'
 
-    stump = Stump::Config.init({ path: "log(#{ENV['RACK_ENV']}.log", shift_age: 'daily' })
-    use Stump::StumpLogger, { logger: stump, access_log: true, level_threshold: info, custom_format: true }
+    stump = Stump::Config.init({ path: "log/#{ENV['RACK_ENV']}.log", shift_age: 'daily' })
+    use Stump::StumpLogger, { logger: stump, access_log: true, level_threshold: 'info', custom_format: true }
 
 ## Issues
 
