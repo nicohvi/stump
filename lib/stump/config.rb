@@ -16,6 +16,10 @@ module Stump
       if FileTest.exist?(log_path)
         log_file = File.open(log_path, 'a')
       else
+        directory_name = File.dirname(log_path)
+        unless File.directory?(directory_name)
+          FileUtils.mkdir_p(directory_name)
+        end
         log_file = File.new(log_path, 'w')
       end
        Logger.new(LoggerTargets.new(STDOUT, log_file), shift_age)
