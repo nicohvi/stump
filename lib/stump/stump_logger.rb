@@ -20,11 +20,11 @@ module Stump
     end
 
     def call(env)
+      env['rack.logger'] = @logger
       began_at = Time.now
       status, header, body = @app.call(env)
       access_log(env, status, began_at) unless @access_log.nil?
-      env['rack.logger'] = @logger
-      @app.call(env)
+      [status, header, body]
     end
 
     private
