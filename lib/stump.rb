@@ -5,8 +5,6 @@ require 'logger'
 
 module Stump
 
-  @logger
-
   module Logger
 
     #
@@ -15,7 +13,7 @@ module Stump
     # *path* is an array of file paths.
     #
     def self.new(path=nil)
-      return @logger = ::Logger.new(LoggerTargets.new(STDOUT)) unless path
+      return ::Logger.new(LoggerTargets.new(STDOUT)) unless path
 
       if FileTest.exist?(path)
         log_file = File.open(path, 'a')
@@ -24,7 +22,7 @@ module Stump
         log_file = File.new(path, 'w')
       end
 
-      @logger = ::Logger.new LoggerTargets.new(STDOUT, log_file)
+      ::Logger.new LoggerTargets.new(STDOUT, log_file)
     end
 
   end

@@ -9,9 +9,9 @@ module Stump
     # Adheres to the Apache Common Log format: http://en.wikipedia.org/wiki/Common_Log_Format
     ACCESS_LOG_FORMAT = %{%s - %s [%s] "%s %s%s %s" %d %0.4f \n}
 
-    def initialize(app)
+    def initialize(app, logger)
       @app = app
-      @logger ||= ::Logger.new(STDOUT, 'daily')
+      @logger = logger || ::Logger.new(STDOUT, 'daily')
       @logger.level ||= 'info'
     end
 
