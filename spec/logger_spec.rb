@@ -9,9 +9,9 @@ describe 'logging to STDOUT' do
     logger.info('log entry')
   end
 
-  it 'should not log to STDOUT when a path is supplied' do
+  it 'should log to STDOUT when a path is supplied as well' do
     logger = Stump::Logger.new 'tmp/test.log'
-    $stdout.should_not_receive(:write)
+    $stdout.should_receive(:write)
     logger.info('log entry')
   end
 

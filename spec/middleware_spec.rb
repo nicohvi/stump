@@ -1,5 +1,4 @@
 require 'stump'
-require 'support/mock_rack_app'
 require 'rack'
 
 describe Stump::Middleware do
