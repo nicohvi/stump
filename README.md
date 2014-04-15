@@ -53,7 +53,8 @@ end
 
 ````
 
-Run `ruby hi.rb`and point your brower to `localhost:4567/hi` to witness the magic.
+Run `bundle` and `ruby hi.rb`, point your brower to `localhost:4567/hi`
+and witness the magic.
 
 
 ## Issues
