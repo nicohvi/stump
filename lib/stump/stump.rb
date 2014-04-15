@@ -7,7 +7,6 @@ module Stump
   # Instantiates a new Logger and provides a LoggerTargets object as the logger's LogDevice.
   # The LoggerTargets object can write to several targets in contrast to a regular device.
   #
-  class Stump
     def self.new(path = {})
       return Logger.new(LoggerTargets.new(STDOUT)) unless path
 
@@ -17,6 +16,7 @@ module Stump
         FileUtils.mkdir_p(File.dirname(log_path))
         log_file = File.new(log_path, 'w')
       end
+
        Logger.new(LoggerTargets.new(STDOUT, log_file), shift_age)
     end
 
@@ -24,5 +24,4 @@ module Stump
 
     end
 
-  end
 end
