@@ -1,11 +1,11 @@
 require 'stump'
 require 'rack'
 
-describe Stump::Middleware do
+describe Stump::AccessLog do
 
   let(:app) { ->(env) { [200, env, "app"] } }
   let :middleware do
-    Stump::Middleware.new(app, { access_log: true })
+    Stump::AccessLog.new app
   end
 
   after :all do
