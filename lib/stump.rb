@@ -1,5 +1,5 @@
 require 'stump/logger_targets'
-require 'stump/config'
+require 'stump/stump'
 require 'stump/stump_logger'
 
 module Stump

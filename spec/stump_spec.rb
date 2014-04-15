@@ -1,6 +1,6 @@
 require 'stump'
 
-describe Stump::Config do
+describe Stump::Stump do
 
   before(:each) do
     @log_file_name = 'tmp/test.log'
@@ -15,7 +15,6 @@ describe Stump::Config do
     Stump::Config.init({path: @log_file_name}).should be_a(Logger)
     File.exists?(@log_file_name).should eq(true)
   end
-
 
   it 'logs to file when a file is specified in the config' do
     logger = Stump::Config.init({path: @log_file_name})

@@ -15,7 +15,6 @@ module Stump
       @app = app
       @logger = options[:logger] || ::Logger.new(STDOUT, 'daily')
       @logger.level = extract_threshold(options[:logger_threshold])
-      format_log(@logger) if options[:custom_format]
       @access_log = options[:access_log]
     end
 
@@ -69,18 +68,6 @@ module Stump
           return ::Logger::WARN
         else
           return ::Logger::INFO
-      end
-    end
-
-    #
-    # Formats the log to the following pattern:
-    #   "#{severity} @ [ #{datetime} ] : #{message} "
-    # e.g "DEBUG @ [2012-21-12 - 10:37:07] : The world is ending, did you remember to bring fancy hats?"
-    #
-    def format_log(logger)
-      logger.datetime_format = '%Y-%m-%d - %H:%M:%S' # e.g. "2004-01-03 00:54:26"
-      logger.formatter = proc do |severity, datetime, progname, msg|
-        "#{severity} @ [#{datetime}] : #{msg} \n"
       end
     end
 
