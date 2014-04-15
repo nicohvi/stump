@@ -1,6 +1,7 @@
 require 'stump/logger_targets'
 require 'stump/middleware'
 require 'stump/version'
+require 'logger'
 
 module Stump
 
