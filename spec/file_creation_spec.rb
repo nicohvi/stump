@@ -3,7 +3,7 @@ require 'logger'
 
 describe 'file creation' do
 
-  before(:all) do
+  before :all do
     @log_file_name = 'tmp/test.log'
   end
 
@@ -17,7 +17,7 @@ describe 'file creation' do
     File.exists?(@log_file_name).should eq(true)
   end
 
-  after(:all) do
+  after :all do
     File.delete('tmp/test.log')
   end
 
