@@ -1,20 +1,18 @@
-require 'logger'
-
 module Stump
 
   #
-  # The StumpLogger ensures that the logger provided (could be a standard Ruby Logger)
+  # The Middleware ensures that the logger provided (could be a standard Ruby Logger)
   # gets called by Rack.
   #
-  class StumpLogger
+  class Middleware
 
     # Adheres to the Apache Common Log format: http://en.wikipedia.org/wiki/Common_Log_Format
     ACCESS_LOG_FORMAT = %{%s - %s [%s] "%s %s%s %s" %d %0.4f \n}
 
     def initialize(app, options = {})
       @app = app
-      @logger = options[:logger] || ::Logger.new(STDOUT, 'daily')
-      @logger.level = extract_threshold(options[:logger_threshold])
+      @logger ||= ::Logger.new(STDOUT, 'daily')
+      @logger.level ||= 'info'
       @access_log = options[:access_log]
     end
 
@@ -47,27 +45,11 @@ module Stump
 
       # Standard library logger doesn't support write but it supports << which actually
       # calls to write on the log device without formatting
-      logger = @logger || env['rack.logger']
-      if logger.respond_to?(:write)
-        logger.write(msg)
+      # logger = @logger || env['rack.logger']
+      if @logger.respond_to?(:write)
+        @logger.write(msg)
       else
-        logger << msg
-      end
-    end
-
-    #
-    # +INFO+ is the default logging level threshold if none is provided.
-    #
-    def extract_threshold(threshold)
-      case threshold
-        when 'debug'
-          return ::Logger::DEBUG
-        when 'info'
-          return ::Logger::INFO
-        when 'warn'
-          return ::Logger::WARN
-        else
-          return ::Logger::INFO
+        @logger << msg
       end
     end
 
