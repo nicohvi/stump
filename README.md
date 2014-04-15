@@ -1,7 +1,7 @@
 # Stump
 
 [![Code Climate](https://codeclimate.com/github/nicohvi/stump.png)](https://codeclimate.com/github/nicohvi/stump)
-[![Build Status](https://travis-ci.org/nicohvi/stump.png?branch=master)](https://travis-ci.org/nicohvi/stump)
+[![Build Status](https://travis-ci.org/nicohvi/stump.svg?branch=v2.0)](https://travis-ci.org/nicohvi/stump)
 [![Dependency Status](https://gemnasium.com/nicohvi/stump.png)](https://gemnasium.com/nicohvi/stump)
 [![Gem Version](https://badge.fury.io/rb/stump.png)](http://badge.fury.io/rb/stump)
 
