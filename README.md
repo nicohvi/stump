@@ -35,7 +35,6 @@ well, like so:
 
 ````
 logger = Stump::Logger.new 'tmp/log.tmp'
-
 ````
 
 To enable the access log (which will log to the previously specified logging
@@ -43,7 +42,6 @@ targets), simply add the following line (which sets up the rack middleware):
 
 ````
 use Stump::AccessLog, logger
-
 ````
 
 ## Example
@@ -70,7 +68,6 @@ get '/hi' do
   logger.debug 'hello'
   'What came first - the cat or the internet?'
 end
-
 ````
 
 Run `bundle` and `ruby hi.rb`, point your brower to `localhost:4567/hi`
